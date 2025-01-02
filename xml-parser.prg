@@ -20,10 +20,10 @@
 	
 	*IF there are no Table name, we don't know what is the name of Node
 	IF !EMPTY(pTableName)
-		loXmlAdapter = CREATEOBJECT("XMLAdapter")	&& MSXML4 SP1 or newer
+		loXmlAdapter = CREATEOBJECT("XMLAdapter")		&& MSXML4 SP1 or newer
 		*loXmlAdapter.IsDiffgram = .T.
 		loXmlAdapter.LoadXML(STRCONV(pXMLtext,9), .F., .T.)			&& (from, isFile, shouldParse)
-		*loXmlAdapter.LoadXML(cFile,.T.,.T.)						&& (from, isFile, shouldParse)	!Parse error, if no conversion to UTF-8
+		*loXmlAdapter.LoadXML(cFile,.T.,.T.)					&& (from, isFile, shouldParse)	!Parse error, if no conversion to UTF-8
 		IF loXmlAdapter.Tables.Count > 0
 			WAIT WINDOW "Result table creation..." NOWAIT NOCLEAR
 		    
@@ -101,13 +101,12 @@
 		RETURN &makro
 	CASE lcType = "D"
 		RETURN CTOD(lcValue)
-	CASE lcType = "B" AND lnHossz=8
-		RETURN VAL(STRTRAN(lcValue,",","."))
+	CASE lcType = "B" AND lnHossz=8			&& float
+		RETURN VAL(STRTRAN(lcValue,",","."))	&& VFP need decimal point: '.'
 	CASE lcType = "L"
 		RETURN IIF(lcValue="false", .F., .T.)
 	OTHERWISE
-
-		*Should handle if there are any other lcType
+		*Should handle if there are any other lcType!
 		susp
 
 		RETURN ""
