@@ -9,7 +9,8 @@
 	*pTableName		- DataTable name, XML made from 
 	*pXMLtext		- the XML string (I got from C# Web API) what should de parsed
 	*---------
-	*Result is the error string or "OK"
+	*Result is the error string;
+	*	or "OK" and the Cursor table with same name as in pTableName
 	*
 	
 	*StatusText		- Last status
@@ -26,11 +27,11 @@
 		IF loXmlAdapter.Tables.Count > 0
 			WAIT WINDOW "Result table creation..." NOWAIT NOCLEAR
 		    
-		    *Creating the CURSOR (shame, but "XMLAdapter" creates w/o data)
-		    IF USED(pTableName)						&& could not make CURSOR if there are one
-		    	USE IN (pTableName)
-		    ENDIF
-	    	loXmlAdapter.Tables(1).ToCursor()		&& ... INTO CURSOR (pTableName)
+			*Creating the CURSOR (shame, but "XMLAdapter" creates w/o data)
+			IF USED(pTableName)						&& could not make CURSOR if there are one
+		    		USE IN (pTableName)
+			ENDIF
+	    		loXmlAdapter.Tables(1).ToCursor()		&& ... INTO CURSOR (pTableName)
 		ELSE
 			WAIT CLEAR
 			StatusText = "There are no Table in the XML."
@@ -47,10 +48,10 @@
 		
 		IF loXML.parseError.errorCode != 0
 			WAIT CLEAR
-       		StatusText = "XML format error: " + loXML.parseError.reason
+       			StatusText = "XML format error: " + loXML.parseError.reason
 
-       		RETURN StatusText
-       	ELSE
+       			RETURN StatusText
+       		ELSE
 			WAIT WINDOW "Result table data loading...    " NOWAIT NOCLEAR
 			*Be sure, the CURSOR table already in selection
    			SELECT (pTableName)
