@@ -81,9 +81,11 @@
    			GO TOP IN (pTableName)
 
 			*The CURSOR table already in selection
+			RETURN "OK"
    		ENDIF
-   	ENDIF		
-   	RETURN "OK"
+   	ENDIF
+	StatusText = "Table name is emtpy!"
+   	RETURN StatusText
    	ENDFUNC
 
 	*------------------------------------------------------------------------------------------------
