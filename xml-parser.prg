@@ -4,8 +4,8 @@
 	******************************
 	* Here comes the parse of XML
 	******************************
-	FUNCTION XMLParseToCursor
-	LPARAMETERS pTableName, pXMLtext
+	FUNCTION XMLParseToCursor(pTableName, pXMLtext)
+	*LPARAMETERS pTableName, pXMLtext
 	*pTableName		- DataTable name, XML made from 
 	*pXMLtext		- the XML string (I got from C# Web API) what should de parsed
 	*---------
@@ -90,8 +90,8 @@
 
 	*------------------------------------------------------------------------------------------------
 
-	FUNCTION typeConversion			&&(rowsColumns.item(j).nodeTypedValue, loXmlAdapter.Tables(1).Fields(j+1).DataType, loXmlAdapter.Tables(1).Fields(j+1).MaxLength)
-	LPARAMETERS lcValue, lcType, lnHossz
+	FUNCTION typeConversion(lcValue, lcType, lnHossz)		&&(rowsColumns.item(j).nodeTypedValue, loXmlAdapter.Tables(1).Fields(j+1).DataType, loXmlAdapter.Tables(1).Fields(j+1).MaxLength)
+	*LPARAMETERS lcValue, lcType, lnHossz
 	PRIVATE makro
 	
 	DO CASE
