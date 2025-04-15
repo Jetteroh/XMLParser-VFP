@@ -18,7 +18,7 @@
 	LOCAL loXmlAdapter, loXml
 	LOCAL makro
 	
-	*IF there are no Table name, we don't know what is the name of Node
+	*IF there are no pTableName, we don't know what is the name of Node
 	IF !EMPTY(pTableName)
 		loXmlAdapter = CREATEOBJECT("XMLAdapter")		&& MSXML4 SP1 or newer
 		*loXmlAdapter.IsDiffgram = .T.
@@ -28,7 +28,7 @@
 			WAIT WINDOW "Result table creation..." NOWAIT NOCLEAR
 		    
 			*Creating the CURSOR (shame, but "XMLAdapter" creates w/o data)
-			IF USED(pTableName)						&& could not make CURSOR if there are one
+			IF USED(pTableName)						&& could not make CURSOR if it has opened
 		    		USE IN (pTableName)
 			ENDIF
 	    		loXmlAdapter.Tables(1).ToCursor()		&& ... INTO CURSOR (pTableName)
